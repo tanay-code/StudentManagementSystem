@@ -1,0 +1,15 @@
+spring.application.name=api-gateway
+server.port=8001
+
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+
+#management.endpoints.web.exposure.include=*
+#
+#spring.cloud.gateway.mvc.routes[0].id=STUDENTSERVICE
+#spring.cloud.gateway.mvc.routes[0].uri=lb://STUDENTSERVICE
+#spring.cloud.gateway.mvc.routes[0].predicates[0]=Path=/students/**
+#
+#spring.cloud.gateway.mvc.routes[1].id=COURSESERVICE
+#spring.cloud.gateway.mvc.routes[1].uri=lb://COURSESERVICE
+#spring.cloud.gateway.mvc.routes[1].predicates[0]=Path=/courses/**

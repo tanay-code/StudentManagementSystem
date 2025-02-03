@@ -1,0 +1,5 @@
+package com.cts.sms.service;
+
+public class StudentServiceImpl {
+
+}

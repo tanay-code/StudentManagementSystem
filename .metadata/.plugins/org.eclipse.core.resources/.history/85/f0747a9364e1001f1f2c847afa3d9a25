@@ -1,0 +1,24 @@
+package com.cts.sms.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cts.sms.entity.Student;
+import com.cts.sms.repository.StudentRepository;
+
+public class StudentServiceImpl implements StudentService{
+	
+	@Autowired
+	StudentRepository studentRepository;
+
+	@Override
+	public String addStudent(Student student) {
+		Student std = studentRepository.save(student);
+		if (std != null)
+			return "Student Saved Successfully";
+		else
+			return "Failed To Save Student";
+	}
+
+
+
+}

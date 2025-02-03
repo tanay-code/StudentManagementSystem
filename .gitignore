@@ -1,0 +1,21 @@
+# Ignore Maven & Gradle target directories
+/target/
+/*.jar
+/*.war
+
+# Ignore IntelliJ IDEA & Eclipse project files
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Ignore logs and temp files
+logs/
+*.log
+*.tmp
+
+# Ignore environment configuration files (optional)
+application.properties
+application.yml
+.env

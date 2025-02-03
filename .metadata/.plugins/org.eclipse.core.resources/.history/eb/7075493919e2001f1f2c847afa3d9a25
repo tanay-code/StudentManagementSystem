@@ -1,0 +1,11 @@
+spring.application.name=CourseService
+server.port=8081
+
+spring.datasource.url=jdbc:mysql://localhost:3306/courseservice?createDatabaseIfNotExist=true
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.datasource.username=root
+#spring.datasource.password=5232
+#
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true
+#eureka.instance.hostname=localhost

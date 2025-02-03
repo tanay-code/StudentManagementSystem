@@ -1,0 +1,5 @@
+package com.cts.sms.controller;
+
+public class StudentController {
+
+}
