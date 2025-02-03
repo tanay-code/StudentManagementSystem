@@ -1,5 +1,6 @@
 package com.cts.sms.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CollectionTable;
@@ -30,5 +31,5 @@ public class Course {
 
 	    @ElementCollection
 	    @CollectionTable(name = "course_students", joinColumns = @JoinColumn(name = "course_id"))
-	    private Set<Integer> studentsEnrolled; // Many-to-Many Relationship
+	    private List<Integer> studentsEnrolled; // Many-to-Many Relationship
 }

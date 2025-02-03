@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cts.sms.entity.Student;
 import com.cts.sms.exceptions.StudentNotFoundException;
+import com.cts.sms.feign.CourseClient;
 import com.cts.sms.repository.StudentRepository;
 
 @Service
@@ -15,6 +16,9 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	CourseClient courseClient;
 
 	@Override
 	public String addStudent(Student student) {
@@ -60,6 +64,13 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public boolean existsById(int id) {
 		return studentRepository.existsById(id);
+	}
+	
+	@Override
+	public List<String> getCoursesEnrolledByStudent(int studentId) {
+	    // Fetch courses from CourseService
+	    // This would typically be a call to the CourseService's method
+	    return courseClient.getCoursesByStudent(studentId); // Implement this method in CourseService
 	}
 
 }

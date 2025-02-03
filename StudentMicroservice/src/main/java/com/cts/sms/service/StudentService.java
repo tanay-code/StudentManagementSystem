@@ -17,4 +17,6 @@ public interface StudentService {
 	public abstract String deleteStudent(int stdId);
 	
 	boolean existsById(int id);
+	
+	List<String> getCoursesEnrolledByStudent(int studentId);
 }

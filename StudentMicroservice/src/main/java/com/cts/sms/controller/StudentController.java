@@ -3,6 +3,7 @@ package com.cts.sms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.sms.entity.Student;
 import com.cts.sms.exceptions.StudentNotFoundException;
+import com.cts.sms.feign.CourseClient;
 import com.cts.sms.service.StudentService;
 
 @RestController
@@ -22,9 +24,11 @@ public class StudentController {
 	
 	@Autowired
 	StudentService studentService;
+	
+	@Autowired
+	CourseClient courseClient;
 
 
-    // Add Student
     @PostMapping("/addStudent") // http://localhost:8080/students/addStudent
     public String addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
@@ -53,4 +57,19 @@ public class StudentController {
 	public boolean doesStudentExist(@PathVariable int id) {
     	return studentService.existsById(id);
     }
+    
+    @GetMapping("/courses/all") // http://localhost:8080/students/courses/all
+    public List<String> getAllCourses() {
+        return courseClient.getAllCourses();
+    }
+    
+    @GetMapping("/{id}/courses") // http://localhost:8080/students/1/courses
+    public List<String> getEnrolledCourses(@PathVariable int id) {
+        return courseClient.getCoursesByStudent(id);
+    }
+    
+//    @PostMapping("/{studentId}/enroll/{courseId}") // http://localhost:8080/students/1/enroll/101
+//    public String enrollStudent(@PathVariable int studentId, @PathVariable int courseId) {
+//        return courseClient.enrollStudent(courseId, studentId);
+//    }
 }

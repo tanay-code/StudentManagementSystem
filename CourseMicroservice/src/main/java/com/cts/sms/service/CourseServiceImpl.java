@@ -57,14 +57,19 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public String enrollStudent(int courseId, int studentId) {
-        // Check if Student Exists in Student Microservice
+        // Check if the student exists in the Student Microservice
         boolean studentExists = courseInterface.doesStudentExist(studentId);
 
         if (!studentExists) {
             throw new RuntimeException("Student with ID " + studentId + " does not exist!");
         }
 
-        // Enroll student if they exist
+        // Check if the student is already enrolled in the course
+        if (isStudentEnrolledInCourse(courseId, studentId)) {
+            throw new RuntimeException("Student is already enrolled in this course!");
+        }
+
+        // Enroll student if they exist and are not already enrolled
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         if (courseOptional.isPresent()) {
             Course course = courseOptional.get();
@@ -75,5 +80,17 @@ public class CourseServiceImpl implements CourseService{
             throw new RuntimeException("Course not found!");
         }
     }
+    
+    @Override
+    public boolean isStudentEnrolledInCourse(int courseId, int studentId) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        return courseOptional.map(course -> course.getStudentsEnrolled().contains(studentId)).orElse(false);
+    }
+    
+//    @Override
+//    public List<Course> getCoursesEnrolledByStudent(int studentId) {
+//        // Assuming you have an Enrollment entity that relates students to courses.
+//        return courseRepository.findCoursesByStudentId(studentId);
+//    }
 
 }

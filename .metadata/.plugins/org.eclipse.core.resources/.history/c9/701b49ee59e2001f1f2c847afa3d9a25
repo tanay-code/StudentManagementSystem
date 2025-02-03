@@ -1,0 +1,5 @@
+package com.cts.sms.feign;
+
+public interface CourseClient {
+
+}
