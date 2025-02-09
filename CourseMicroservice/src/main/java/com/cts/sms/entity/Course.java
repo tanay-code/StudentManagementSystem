@@ -1,15 +1,13 @@
 package com.cts.sms.entity;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +28,5 @@ public class Course {
 	    private String duration; // Duration in weeks or months
 
 	    @ElementCollection
-	    @CollectionTable(name = "course_students", joinColumns = @JoinColumn(name = "course_id"))
-	    private List<Integer> studentsEnrolled; // Many-to-Many Relationship
+	    private List<Integer> studentsEnrolled = new ArrayList<>(); // Many-to-Many Relationship
 }

@@ -2,6 +2,7 @@ package com.cts.sms.service;
 
 import java.util.List;
 
+import com.cts.sms.dto.Course;
 import com.cts.sms.entity.Student;
 import com.cts.sms.exceptions.StudentNotFoundException;
 
@@ -18,5 +19,5 @@ public interface StudentService {
 	
 	boolean existsById(int id);
 	
-	List<String> getCoursesEnrolledByStudent(int studentId);
+	List<Course> getCoursesEnrolledByStudent(int studentId);
 }

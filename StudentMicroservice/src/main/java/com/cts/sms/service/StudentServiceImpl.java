@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.sms.dto.Course;
 import com.cts.sms.entity.Student;
 import com.cts.sms.exceptions.StudentNotFoundException;
 import com.cts.sms.feign.CourseClient;
@@ -67,7 +68,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 	
 	@Override
-	public List<String> getCoursesEnrolledByStudent(int studentId) {
+	public List<Course> getCoursesEnrolledByStudent(int studentId) {
 	    // Fetch courses from CourseService
 	    // This would typically be a call to the CourseService's method
 	    return courseClient.getCoursesByStudent(studentId); // Implement this method in CourseService

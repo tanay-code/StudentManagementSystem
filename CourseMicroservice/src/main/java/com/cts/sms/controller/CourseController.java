@@ -30,10 +30,7 @@ public class CourseController {
     }
 
 
-    @GetMapping("/getAll") // http://localhost:8081/courses/getAll
-    public ResponseEntity<List<Course>> getAllCourses() {
-        return ResponseEntity.ok(courseService.getAllCourses());
-    }
+
 
 
     @GetMapping("/getById/{id}") // http://localhost:8081/courses/getById/1
@@ -61,10 +58,31 @@ public class CourseController {
     public String enrollStudent(@PathVariable int courseId, @PathVariable int studentId) {
         return courseService.enrollStudent(courseId, studentId);
     }
+
+    @GetMapping("/enrolled/{studentId}")
+    public ResponseEntity<List<Course>> getCoursesEnrolledByStudent(@PathVariable int studentId) {
+        List<Course> courses = courseService.getCoursesEnrolledByStudent(studentId);
+        return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/getAll") // Fixed to match Feign Client
+    public ResponseEntity<List<Course>> getAllCourses() {
+        return ResponseEntity.ok(courseService.getAllCourses());
+    }
+
+    @GetMapping("/exists/{courseId}")
+    public boolean doesCourseExist(@PathVariable int courseId) {
+        return courseService.doesCourseExists(courseId);
+    }
     
-//    @GetMapping("/enrolled/{studentId}")
-//    public ResponseEntity<List<Course>> getCoursesEnrolledByStudent(@PathVariable int studentId) {
-//        List<Course> courses = courseService.getCoursesEnrolledByStudent(studentId);
-//        return ResponseEntity.ok(courses);
-//    }
+    @GetMapping("/{courseId}/students")
+    public List<Integer> getEnrolledStudents(@PathVariable int courseId) {
+        return courseService.getEnrolledStudents(courseId);
+    }
+    
+	@GetMapping("/{courseId}/isStudentEnrolled/{studentId}")
+	boolean isStudentEnrolled(@PathVariable int courseId, @PathVariable int studentId) {
+		return courseService.isStudentEnrolled(courseId,studentId);
+	};
+    
 }

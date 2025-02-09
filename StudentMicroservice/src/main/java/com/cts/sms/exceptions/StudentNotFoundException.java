@@ -1,7 +1,11 @@
 package com.cts.sms.exceptions;
 
-public class StudentNotFoundException extends Exception{
-	public StudentNotFoundException(String message) {
-		super(message);
-}
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class StudentNotFoundException extends RuntimeException {
+    public StudentNotFoundException(String message) {
+        super(message);
+    }
 }

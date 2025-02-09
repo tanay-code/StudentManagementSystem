@@ -11,5 +11,5 @@ import com.cts.sms.entity.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-   
+   List<Course> findByStudentsEnrolledContaining(int studentId);
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +17,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Student {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private int id;
 
-	private String name;
+	    @NotBlank(message = "Name is mandatory")
+	    private String name;
 
-	private String email;
+	    @Email(message = "Email should be valid")
+	    @NotBlank(message = "Email is mandatory")
+	    private String email;
 
 }

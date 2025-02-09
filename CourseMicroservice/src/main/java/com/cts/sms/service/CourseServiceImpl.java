@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.sms.entity.Course;
+import com.cts.sms.exceptions.ResourceNotFoundException;
 import com.cts.sms.feign.CourseInterface;
 import com.cts.sms.repository.CourseRepository;
 
@@ -47,7 +48,7 @@ public class CourseServiceImpl implements CourseService{
             course.setDescription(updatedCourse.getDescription());
             course.setDuration(updatedCourse.getDuration());
             return courseRepository.save(course);
-        }).orElseThrow(() -> new RuntimeException("Course not found with ID: " + id));
+        }).orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + id));
     }
 
     @Override
@@ -61,12 +62,12 @@ public class CourseServiceImpl implements CourseService{
         boolean studentExists = courseInterface.doesStudentExist(studentId);
 
         if (!studentExists) {
-            throw new RuntimeException("Student with ID " + studentId + " does not exist!");
+            throw new ResourceNotFoundException("Student with ID " + studentId + " does not exist!");
         }
 
         // Check if the student is already enrolled in the course
         if (isStudentEnrolledInCourse(courseId, studentId)) {
-            throw new RuntimeException("Student is already enrolled in this course!");
+            throw new ResourceNotFoundException("Student is already enrolled in this course!");
         }
 
         // Enroll student if they exist and are not already enrolled
@@ -77,20 +78,45 @@ public class CourseServiceImpl implements CourseService{
             courseRepository.save(course);
             return "Student " + studentId + " enrolled successfully!";
         } else {
-            throw new RuntimeException("Course not found!");
+            throw new ResourceNotFoundException("Course not found!");
         }
     }
     
-    @Override
+    @Override //helper method
     public boolean isStudentEnrolledInCourse(int courseId, int studentId) {
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         return courseOptional.map(course -> course.getStudentsEnrolled().contains(studentId)).orElse(false);
     }
     
-//    @Override
-//    public List<Course> getCoursesEnrolledByStudent(int studentId) {
-//        // Assuming you have an Enrollment entity that relates students to courses.
-//        return courseRepository.findCoursesByStudentId(studentId);
-//    }
+    @Override
+    public List<Course> getCoursesEnrolledByStudent(int studentId) {
+        // Assuming you have an Enrollment entity that relates students to courses.
+        return courseRepository.findByStudentsEnrolledContaining(studentId);
+    }
+
+	@Override
+	public boolean doesCourseExists(int courseId) {
+		return courseRepository.existsById(courseId);
+	}
+
+	@Override
+	public List<Integer> getEnrolledStudents(int courseId) {
+		Optional<Course> course = courseRepository.findById(courseId);
+        return course.map(Course::getStudentsEnrolled).orElseThrow(() -> 
+        new ResourceNotFoundException("Course not found with ID: " + courseId)
+        );
+	}
+
+	@Override
+	public boolean isStudentEnrolled(int courseId, int studentId) {
+		Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
+		boolean studentExists = courseInterface.doesStudentExist(studentId);
+
+        if (!studentExists) {
+            throw new ResourceNotFoundException("Student with ID " + studentId + " does not exist!");
+        }
+		return course.getStudentsEnrolled().contains(studentId);
+	}
 
 }
