@@ -23,7 +23,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/students")
-@Validated
 public class StudentController {
 	
     private final StudentService studentService;
@@ -45,13 +44,9 @@ public class StudentController {
 		return studentService.getAllStudent();
 	}
 
-    @GetMapping("/getById/{id}") // http://localhost:8080/students/getById/1
-    public Student getStudent(@PathVariable("id") int studentId) {
-        Student student = studentService.getStudent(studentId);
-        if (student == null) {
-            throw new StudentNotFoundException("No such student id");
-        }
-        return student;
+    @GetMapping("/getById/{studentId}") // http://localhost:8080/students/getById/1
+    public Student getStudent(@PathVariable int studentId) {
+        return studentService.getStudent(studentId);
     }
     
     @PutMapping("/update") // http://localhost:8080/students/update
@@ -72,17 +67,22 @@ public class StudentController {
     
     //calling course-microservice
     @GetMapping("/courses/all") // http://localhost:8080/students/courses/all
-    public List<Course> getAllCourses() { // Updated return type
+    public List<Course> getAllCourses() {
         return courseClient.getAllCourses();
     }
 
     @GetMapping("/{id}/courses")
-    public List<Course> getEnrolledCourses(@PathVariable int id) { // Updated return type
+    public List<Course> getEnrolledCourses(@PathVariable int id) {
         return courseClient.getCoursesByStudent(id);
     }
 
     @PostMapping("/{studentId}/enroll/{courseId}")
     public String enrollStudent(@PathVariable int studentId, @PathVariable int courseId) {
-        return courseClient.enrollStudent(courseId, studentId); // Fixed parameter order
+        return courseClient.enrollStudent(courseId, studentId);
+    }
+    
+    @GetMapping("/getMarksGreaterThan/{marks}")
+    public List<Student> getStudentMarksGreaterThan(@PathVariable int marks) {
+        return studentService.getStudentMarksGreaterThan(marks);
     }
 }

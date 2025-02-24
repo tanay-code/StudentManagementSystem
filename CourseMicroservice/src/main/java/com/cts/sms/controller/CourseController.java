@@ -29,16 +29,13 @@ public class CourseController {
         return ResponseEntity.ok(courseService.addCourse(course));
     }
 
-
-
-
-
     @GetMapping("/getById/{id}") // http://localhost:8081/courses/getById/1
     public ResponseEntity<Course> getCourseById(@PathVariable int id) {
         Optional<Course> course = courseService.getCourseById(id);
-        return course.map(ResponseEntity::ok)
+        return course.map(item -> ResponseEntity.ok(item))
                      .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
 
     @PutMapping("/updateCourse/{id}") // http://localhost:8081/courses/updateCourse/1
@@ -84,5 +81,7 @@ public class CourseController {
 	boolean isStudentEnrolled(@PathVariable int courseId, @PathVariable int studentId) {
 		return courseService.isStudentEnrolled(courseId,studentId);
 	};
+	
+
     
 }

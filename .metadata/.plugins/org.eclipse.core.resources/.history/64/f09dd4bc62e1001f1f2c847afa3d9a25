@@ -1,5 +1,0 @@
-package com.cts.sms.repository;
-
-public interface StudentRepository {
-
-}

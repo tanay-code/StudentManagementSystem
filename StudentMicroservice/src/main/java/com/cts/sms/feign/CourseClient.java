@@ -14,7 +14,7 @@ public interface CourseClient {
     @GetMapping("/courses/enrolled/{studentId}")
     List<Course> getCoursesByStudent(@PathVariable("studentId") int studentId);
    
-    @GetMapping("/courses/getAll") // Fixed endpoint to match CourseController
+    @GetMapping("/courses/getAll")
     List<Course> getAllCourses();
    
     @PostMapping("/courses/enroll/{courseId}/{studentId}")

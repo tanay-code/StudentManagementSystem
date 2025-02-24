@@ -75,26 +75,26 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceRepository.findByStudentIdAndCourseId(studentId, courseId);
     }
 
-    @Scheduled(cron = "59 59 23 * * ?")
-    public void markMissingAttendanceAsNA() {
-        LocalDate today = LocalDate.now();
-        List<Integer> courseIds = List.of(1, 2, 3);
-
-        for (int courseId : courseIds) {
-            List<Integer> enrolledStudents = courseClient.getEnrolledStudents(courseId);
-            List<Integer> missingStudents = enrolledStudents.stream()
-                .filter(studentId -> attendanceRepository.findByStudentIdAndCourseIdAndDate(studentId, courseId, today).isEmpty())
-                .toList();
-
-            for (int studentId : missingStudents) {
-                Attendance attendance = new Attendance();
-                attendance.setStudentId(studentId);
-                attendance.setCourseId(courseId);
-                attendance.setInstructorId(0);
-                attendance.setStatus(AttendanceStatus.NA);
-                attendance.setDate(today);
-                attendanceRepository.save(attendance);
-            }
-        }
-    }
+//    @Scheduled(cron = "59 59 23 * * ?")
+//    public void markMissingAttendanceAsNA() {
+//        LocalDate today = LocalDate.now();
+//        List<Integer> courseIds = List.of(1, 2, 3);
+//
+//        for (int courseId : courseIds) {
+//            List<Integer> enrolledStudents = courseClient.getEnrolledStudents(courseId);
+//            List<Integer> missingStudents = enrolledStudents.stream()
+//                .filter(studentId -> attendanceRepository.findByStudentIdAndCourseIdAndDate(studentId, courseId, today).isEmpty())
+//                .toList();
+//
+//            for (int studentId : missingStudents) {
+//                Attendance attendance = new Attendance();
+//                attendance.setStudentId(studentId);
+//                attendance.setCourseId(courseId);
+//                attendance.setInstructorId(0);
+//                attendance.setStatus(AttendanceStatus.NA);
+//                attendance.setDate(today);
+//                attendanceRepository.save(attendance);
+//            }
+//        }
+//    }
 }

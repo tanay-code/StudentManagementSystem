@@ -1,7 +1,0 @@
-package com.cts.sms.service;
-
-import com.cts.sms.entity.Student;
-
-public interface StudentService {
-	public abstract String addStudent(Student student);
-}

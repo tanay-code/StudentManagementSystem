@@ -20,4 +20,7 @@ public interface StudentService {
 	boolean existsById(int id);
 	
 	List<Course> getCoursesEnrolledByStudent(int studentId);
+	
+	List<Student> getStudentMarksGreaterThan(int marks);
+
 }

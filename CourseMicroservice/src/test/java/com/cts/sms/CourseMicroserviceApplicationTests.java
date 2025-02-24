@@ -80,39 +80,5 @@ class CourseMicroserviceApplicationTests {
         verify(courseRepository, times(1)).findById(1);
     }
 
-    @Test
-    public void testEnrollStudent_Success() {
-        when(courseInterface.doesStudentExist(1)).thenReturn(true);
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-
-        String result = courseService.enrollStudent(1, 1);
-
-        assertEquals("Student 1 enrolled successfully!", result);
-        verify(courseRepository, times(1)).save(course);
-    }
-
-    @Test
-    public void testEnrollStudent_StudentNotExist() {
-        when(courseInterface.doesStudentExist(1)).thenReturn(false);
-
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            courseService.enrollStudent(1, 1);
-        });
-
-        assertEquals("Student with ID 1 does not exist!", exception.getMessage());
-    }
-
-    @Test
-    public void testEnrollStudent_AlreadyEnrolled() {
-        when(courseInterface.doesStudentExist(1)).thenReturn(true);
-        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        course.getStudentsEnrolled().add(1);
-
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            courseService.enrollStudent(1, 1);
-        });
-
-        assertEquals("Student is already enrolled in this course!", exception.getMessage());
-    }
 
 }

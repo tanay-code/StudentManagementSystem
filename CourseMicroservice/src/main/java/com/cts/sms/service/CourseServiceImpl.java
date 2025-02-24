@@ -20,11 +20,6 @@ public class CourseServiceImpl implements CourseService{
 	@Autowired
 	CourseInterface courseInterface;
 	
-//	private CourseInterface courseInterface;
-//	
-//	public CourseServiceImpl(CourseInterface courseInterface) {
-//        this.courseInterface = courseInterface;
-//    }
 
 	@Override
     public Course addCourse(Course course) {
@@ -38,7 +33,12 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public Optional<Course> getCourseById(Integer id) {
-        return courseRepository.findById(id);
+    	Optional<Course> course = courseRepository.findById(id);
+    	if(course.isPresent()) {
+    		return course;    		
+    	}else {
+    		throw new ResourceNotFoundException("ID does not exist");
+    	}
     }
 
     @Override
@@ -118,5 +118,6 @@ public class CourseServiceImpl implements CourseService{
         }
 		return course.getStudentsEnrolled().contains(studentId);
 	}
+
 
 }

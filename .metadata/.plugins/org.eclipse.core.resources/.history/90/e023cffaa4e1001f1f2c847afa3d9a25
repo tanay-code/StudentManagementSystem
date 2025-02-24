@@ -1,5 +1,0 @@
-package com.cts.sms.feign;
-
-public interface CourseInterface {
-
-}

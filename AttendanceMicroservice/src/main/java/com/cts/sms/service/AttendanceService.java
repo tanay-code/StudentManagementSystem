@@ -8,5 +8,5 @@ import com.cts.sms.enums.AttendanceStatus;
 public interface AttendanceService {
     Attendance markAttendance(int studentId, int courseId, int instructorId, AttendanceStatus status);
     List<Attendance> getStudentAttendance(int studentId, int courseId);
-    void markMissingAttendanceAsNA();
+//    void markMissingAttendanceAsNA();
 }

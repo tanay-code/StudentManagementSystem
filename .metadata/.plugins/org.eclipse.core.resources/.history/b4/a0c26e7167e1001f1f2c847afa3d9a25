@@ -1,5 +1,0 @@
-package com.cts.sms.exceptions;
-
-public class StudentNotFoundException {
-
-}

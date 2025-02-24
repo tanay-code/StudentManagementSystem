@@ -28,4 +28,6 @@ public interface CourseService {
 	List<Integer> getEnrolledStudents(int courseId);
 	
 	boolean isStudentEnrolled(int courseId, int studentId);
+	
+//	List<String> nameOfStudents(int courseId);
 }

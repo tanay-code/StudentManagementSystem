@@ -2,6 +2,7 @@ package com.cts.sms.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,8 +71,15 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public List<Course> getCoursesEnrolledByStudent(int studentId) {
 	    // Fetch courses from CourseService
-	    // This would typically be a call to the CourseService's method
-	    return courseClient.getCoursesByStudent(studentId); // Implement this method in CourseService
+	    return courseClient.getCoursesByStudent(studentId);
 	}
+
+	@Override
+	public List<Student> getStudentMarksGreaterThan(int marks) {
+		return studentRepository.findByMarksGreaterThan(marks);
+	}
+
+
+
 
 }
