@@ -23,4 +23,8 @@ public interface InstructorService {
     boolean isAssignedCourse(int instructorId, int courseId);
     
     boolean doesInstructorExist(int id);
+    
+    void removeCourseFromInstructor(int instructorId, int courseId);
+    
+    List<Instructor> getInstructorsByCourseId(int courseId);
 }

@@ -10,5 +10,5 @@ import com.cts.sms.entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student,Integer>{
 
-	List<Student> findByMarksGreaterThan(int marks);
+//	List<Student> findByMarksGreaterThan(int marks);
 }

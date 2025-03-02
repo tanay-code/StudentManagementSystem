@@ -29,5 +29,5 @@ public interface CourseService {
 	
 	boolean isStudentEnrolled(int courseId, int studentId);
 	
-//	List<String> nameOfStudents(int courseId);
+	List<String> getCourseNames(List<Integer> courseIds);
 }

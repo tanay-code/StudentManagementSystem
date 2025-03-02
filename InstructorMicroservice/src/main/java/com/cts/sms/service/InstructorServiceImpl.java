@@ -38,7 +38,9 @@ public class InstructorServiceImpl implements InstructorService {
 		Instructor existingInstructor = getInstructorById(id);
 		existingInstructor.setName(instructor.getName());
 		existingInstructor.setEmail(instructor.getEmail());
+		if(instructor.getAssignedCourses().size()>0) {
 		existingInstructor.setAssignedCourses(instructor.getAssignedCourses());
+		}
 		return instructorRepository.save(existingInstructor);
 	}
 
@@ -88,6 +90,19 @@ public class InstructorServiceImpl implements InstructorService {
 	@Override
 	public boolean doesInstructorExist(int id) {
 		return instructorRepository.existsById(id);
+	}
+	
+    @Override
+    public void removeCourseFromInstructor(int instructorId, int courseId) {
+        Instructor instructor = instructorRepository.findById(instructorId)
+            .orElseThrow(() -> new RuntimeException("Instructor not found"));
+        instructor.getAssignedCourses().remove(Integer.valueOf(courseId));
+        instructorRepository.save(instructor);
+    }
+
+	@Override
+	public List<Instructor> getInstructorsByCourseId(int courseId) {
+		return instructorRepository.findInstructorsByCourseId(courseId);
 	}
 
 }

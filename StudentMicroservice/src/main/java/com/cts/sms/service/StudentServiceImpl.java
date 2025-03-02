@@ -49,15 +49,6 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student updateStudent(Student student) {
-		Student std = studentRepository.save(student);
-		if (std != null)
-			return std;
-		else
-			return null;
-	}
-
-	@Override
 	public String deleteStudent(int stdId) {
 		studentRepository.deleteById(stdId);
 		return "Student Deleted Successfully";
@@ -75,11 +66,13 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public List<Student> getStudentMarksGreaterThan(int marks) {
-		return studentRepository.findByMarksGreaterThan(marks);
+	public Student updateStudent(int id, Student studentDetails) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with id " + id));
+
+        student.setName(studentDetails.getName());
+        student.setEmail(studentDetails.getEmail());
+        return studentRepository.save(student);
 	}
-
-
-
 
 }

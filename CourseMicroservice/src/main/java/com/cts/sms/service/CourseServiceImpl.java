@@ -2,13 +2,16 @@ package com.cts.sms.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cts.sms.dto.Instructor;
 import com.cts.sms.entity.Course;
 import com.cts.sms.exceptions.ResourceNotFoundException;
 import com.cts.sms.feign.CourseInterface;
+import com.cts.sms.feign.InstructorInterface;
 import com.cts.sms.repository.CourseRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class CourseServiceImpl implements CourseService{
 	
 	@Autowired
 	CourseInterface courseInterface;
+	
+	@Autowired
+	InstructorInterface instructorInterface;
 	
 
 	@Override
@@ -53,6 +59,14 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public void deleteCourse(Integer id) {
+        Course course = courseRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Course not found"));
+        
+
+        List<Instructor> instructors = instructorInterface.getInstructorsByCourseId(id);
+        for (Instructor instructor : instructors) {
+        	instructorInterface.removeCourseFromInstructor(instructor.getId(), id);
+        }
         courseRepository.deleteById(id);
     }
 
@@ -117,6 +131,13 @@ public class CourseServiceImpl implements CourseService{
             throw new ResourceNotFoundException("Student with ID " + studentId + " does not exist!");
         }
 		return course.getStudentsEnrolled().contains(studentId);
+	}
+
+	@Override
+	public List<String> getCourseNames(List<Integer> courseIds) {
+		return courseRepository.findAllById(courseIds).stream()
+                .map(course -> course.getCourseName())
+                .collect(Collectors.toList());
 	}
 
 

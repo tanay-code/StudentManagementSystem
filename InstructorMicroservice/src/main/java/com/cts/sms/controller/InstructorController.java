@@ -3,6 +3,7 @@ package com.cts.sms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class InstructorController {
         return instructorService.getAllInstructors();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Instructor updateInstructor(@PathVariable int id, @RequestBody Instructor instructor) {
         return instructorService.updateInstructor(id, instructor);
     }
@@ -67,5 +68,16 @@ public class InstructorController {
     public boolean doesInstructorExist(@PathVariable int id) {
     	return instructorService.doesInstructorExist(id);
     };
+    
+    @PutMapping("/{instructorId}/removeCourse/{courseId}")
+    public ResponseEntity<Void> removeCourseFromInstructor(@PathVariable int instructorId, @PathVariable int courseId) {
+        instructorService.removeCourseFromInstructor(instructorId, courseId);
+        return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/byCourse/{courseId}")
+    public List<Instructor> getInstructorsByCourseId(@PathVariable int courseId) {
+        return instructorService.getInstructorsByCourseId(courseId);
+    }
 
 }

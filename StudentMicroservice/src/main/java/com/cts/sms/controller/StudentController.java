@@ -3,7 +3,7 @@ package com.cts.sms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.sms.dto.Course;
 import com.cts.sms.entity.Student;
-import com.cts.sms.exceptions.StudentNotFoundException;
 import com.cts.sms.feign.CourseClient;
 import com.cts.sms.service.StudentService;
 
@@ -23,6 +22,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/students")
+//@CrossOrigin(origins = "http://localhost:8001")
 public class StudentController {
 	
     private final StudentService studentService;
@@ -49,10 +49,11 @@ public class StudentController {
         return studentService.getStudent(studentId);
     }
     
-    @PutMapping("/update") // http://localhost:8080/students/update
-	public Student updateStudent(@RequestBody Student student) {
-		return studentService.updateStudent(student);
-	}
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student studentDetails) {
+        Student updatedStudent = studentService.updateStudent(id, studentDetails);
+        return ResponseEntity.ok(updatedStudent);
+    }
     
     @DeleteMapping("/deleteById/{id}") // http://localhost:8080/students/deleteById
 	public String deleteStudent(@PathVariable("id") int studentId) {
@@ -81,8 +82,8 @@ public class StudentController {
         return courseClient.enrollStudent(courseId, studentId);
     }
     
-    @GetMapping("/getMarksGreaterThan/{marks}")
-    public List<Student> getStudentMarksGreaterThan(@PathVariable int marks) {
-        return studentService.getStudentMarksGreaterThan(marks);
-    }
+//    @GetMapping("/getMarksGreaterThan/{marks}")
+//    public List<Student> getStudentMarksGreaterThan(@PathVariable int marks) {
+//        return studentService.getStudentMarksGreaterThan(marks);
+//    }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.sms.entity.Course;
@@ -75,6 +76,11 @@ public class CourseController {
     @GetMapping("/{courseId}/students")
     public List<Integer> getEnrolledStudents(@PathVariable int courseId) {
         return courseService.getEnrolledStudents(courseId);
+    }
+    
+    @GetMapping("/getCourseNames")
+    public List<String> getCourseNames(@RequestParam List<Integer> courseIds) {
+        return courseService.getCourseNames(courseIds);
     }
     
 	@GetMapping("/{courseId}/isStudentEnrolled/{studentId}")

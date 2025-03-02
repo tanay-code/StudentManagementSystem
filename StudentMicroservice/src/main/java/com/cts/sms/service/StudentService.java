@@ -13,7 +13,7 @@ public interface StudentService {
 	
 	public abstract Student getStudent(int stdId) throws StudentNotFoundException;
 	
-	public abstract Student updateStudent(Student student);
+	public abstract Student updateStudent(int id,Student student);
 	
 	public abstract String deleteStudent(int stdId);
 	
@@ -21,6 +21,6 @@ public interface StudentService {
 	
 	List<Course> getCoursesEnrolledByStudent(int studentId);
 	
-	List<Student> getStudentMarksGreaterThan(int marks);
+//	List<Student> getStudentMarksGreaterThan(int marks);
 
 }
