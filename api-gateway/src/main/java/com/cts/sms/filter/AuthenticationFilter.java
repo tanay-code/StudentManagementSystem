@@ -48,6 +48,10 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     String requestedPath = exchange.getRequest().getPath().toString();
                     String method = exchange.getRequest().getMethod().name();
  
+                    System.out.println("Role "+role);
+                    System.out.println("Path "+requestedPath);
+                    System.out.println("Method "+method);
+                    
                     if (!isAuthorized(role, requestedPath, method)) {
                         return handleUnauthorized(exchange.getResponse(), "Unauthorized access");
                     }
@@ -64,6 +68,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 //        if ("USER".equalsIgnoreCase(role)) {
 //            return path.startsWith("/stocks") || path.startsWith("/inventory") || path.startsWith("/order");
 //        }
+    	
         return true;
     }
  

@@ -1,6 +1,7 @@
 package com.cts.sms.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,6 @@ import com.cts.sms.entity.Instructor;
 public interface InstructorRepository extends JpaRepository<Instructor, Integer> {
     @Query("SELECT i FROM Instructor i WHERE :courseId MEMBER OF i.assignedCourses")
     List<Instructor> findInstructorsByCourseId(@Param("courseId") int courseId);
+    
+    Optional<Instructor>  findByUserId(int userId);
 }

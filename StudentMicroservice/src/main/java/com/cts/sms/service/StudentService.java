@@ -21,6 +21,8 @@ public interface StudentService {
 	
 	List<Course> getCoursesEnrolledByStudent(int studentId);
 	
+	public abstract Student getStudentByUserId(int userId) throws StudentNotFoundException;
+	
 //	List<Student> getStudentMarksGreaterThan(int marks);
 
 }

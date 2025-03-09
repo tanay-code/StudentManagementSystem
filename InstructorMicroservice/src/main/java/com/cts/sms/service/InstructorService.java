@@ -19,6 +19,7 @@ public interface InstructorService {
 
     Instructor assignInstructorToCourse(int instructorId, int courseId);
     List<Integer> getAssignedCourses(int instructorId);
+    List<Integer> getAssignedCoursesByUserId(int userId);
     
     boolean isAssignedCourse(int instructorId, int courseId);
     

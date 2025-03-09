@@ -30,4 +30,6 @@ public interface CourseService {
 	boolean isStudentEnrolled(int courseId, int studentId);
 	
 	List<String> getCourseNames(List<Integer> courseIds);
+	
+	void unenrollStudentFromAllCourses(int studentId);
 }

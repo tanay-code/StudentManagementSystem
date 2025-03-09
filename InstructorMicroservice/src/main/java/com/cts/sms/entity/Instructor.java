@@ -29,4 +29,6 @@ public class Instructor {
     
     @ElementCollection
     private List<Integer> assignedCourses = new ArrayList<>();
+    
+    private int userId;
 }

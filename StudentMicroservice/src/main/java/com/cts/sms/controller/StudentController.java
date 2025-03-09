@@ -36,7 +36,7 @@ public class StudentController {
 
 
     @PostMapping("/addStudent") // http://localhost:8080/students/addStudent
-    public String addStudent(@Valid @RequestBody Student student) {
+    public String addStudent(@RequestBody @Valid Student student) {
         return studentService.addStudent(student);
     }
     @GetMapping("/getAll") // http://localhost:8080/students/getAll
@@ -47,6 +47,11 @@ public class StudentController {
     @GetMapping("/getById/{studentId}") // http://localhost:8080/students/getById/1
     public Student getStudent(@PathVariable int studentId) {
         return studentService.getStudent(studentId);
+    }
+    
+    @GetMapping("/getByUserId/{userId}") // http://localhost:8080/getByUserId/1
+    public Student getStudentByUserId(@PathVariable int userId) {
+        return studentService.getStudentByUserId(userId);
     }
     
     @PutMapping("/update/{id}")

@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cts.sms.dto.Course;
 
@@ -19,5 +20,8 @@ public interface CourseClient {
    
     @PostMapping("/courses/enroll/{courseId}/{studentId}")
     String enrollStudent(@PathVariable("courseId") int courseId, @PathVariable("studentId") int studentId);
+    
+    @PutMapping("/courses/unenrollStudent/{studentId}")
+    void unenrollStudentFromAllCourses(@PathVariable int studentId);
 
 }

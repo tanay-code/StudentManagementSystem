@@ -27,5 +27,7 @@ public class Student {
 	    @Email(message = "Email should be valid")
 	    @NotBlank(message = "Email is mandatory")
 	    private String email;
+	    
+	    private int userId;
 
 }

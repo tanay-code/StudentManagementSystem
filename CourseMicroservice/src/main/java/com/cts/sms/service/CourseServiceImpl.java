@@ -139,6 +139,15 @@ public class CourseServiceImpl implements CourseService{
                 .map(course -> course.getCourseName())
                 .collect(Collectors.toList());
 	}
+	
+	@Override
+	public void unenrollStudentFromAllCourses(int studentId) {
+        List<Course> courses = courseRepository.findByStudentsEnrolledContaining(studentId);
+        for (Course course : courses) {
+            course.getStudentsEnrolled().remove(Integer.valueOf(studentId));
+            courseRepository.save(course);
+        }
+    }
 
 
 }

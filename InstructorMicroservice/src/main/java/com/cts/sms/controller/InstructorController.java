@@ -58,6 +58,10 @@ public class InstructorController {
     public List<Integer> getAssignedCourses(@PathVariable int instructorId) {
         return instructorService.getAssignedCourses(instructorId); // Fetch assigned courses
     }
+    @GetMapping("byUserId/{userId}/courses")
+    public List<Integer> getAssignedCoursesByUserId(@PathVariable int userId) {
+        return instructorService.getAssignedCoursesByUserId(userId); // Fetch assigned courses
+    }
     
     @GetMapping("/{instructorId}/isAssigned/{courseId}")
     public boolean isAssignedCourse(@PathVariable int instructorId, @PathVariable int courseId) {

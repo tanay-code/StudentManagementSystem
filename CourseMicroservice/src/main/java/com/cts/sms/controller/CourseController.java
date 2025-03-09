@@ -87,6 +87,11 @@ public class CourseController {
 	boolean isStudentEnrolled(@PathVariable int courseId, @PathVariable int studentId) {
 		return courseService.isStudentEnrolled(courseId,studentId);
 	};
+    @PutMapping("/unenrollStudent/{studentId}")
+    public ResponseEntity<String> unenrollStudent(@PathVariable int studentId) {
+        courseService.unenrollStudentFromAllCourses(studentId);
+        return ResponseEntity.ok("Student unenrolled from all courses successfully");
+    }
 	
 
     
